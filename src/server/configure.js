@@ -6,7 +6,7 @@ const production = require('../../settings/production');
 nconf.argv();
 
 if (nconf.get('env')) {
-  require('dotenv').config({ path: nconf.get('ENV') });
+  require('dotenv').config({ path: nconf.get('env') });
 }
 
 nconf.env({
@@ -18,7 +18,8 @@ nconf.env({
     'UNIVERSAL__MU_URL', // UNIVERSAL:MU_URL
     'SERVER__HOST', // SERVER:HOST
     'SERVER__PORT', // SERVER:PORT
-    'SERVER__LOGS_PATH' // SERVER:LOGS_PATH
+    'SERVER__LOGS_PATH', // SERVER:LOGS_PATH
+    'SERVER__OPENID__VERIFY_URL'
   ]
 });
 

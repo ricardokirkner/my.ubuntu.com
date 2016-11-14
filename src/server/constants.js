@@ -6,7 +6,8 @@ const constants = {
   E_SSO_DISCHARGE_FAIL: 'Sorry, Ubuntu One failed to return a valid discharge macaroon, please try signing in again, ensuring the service authorization item is checked',
   E_LOGOUT_FAIL: 'Logout failed.',
   E_NO_SESSION: 'No session.',
-  E_NO_SESSION_MACAROON: 'No session macaroon.'
+  E_NO_SESSION_MACAROON: 'No session macaroon.',
+  E_NONCE_REPLAYED: 'Authentication failed. Please try signing in again.'
 };
 
 export default constants;
