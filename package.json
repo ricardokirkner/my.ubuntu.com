@@ -46,6 +46,7 @@
     "nconf-yaml": "^1.0.2",
     "normalize.css": "^5.0.0",
     "openid": "^2.0.6",
+    "raven": "^0.12.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-helmet": "^3.1.0",

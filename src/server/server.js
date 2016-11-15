@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import path from 'path';
 import session from 'express-session';
 import chokidar from 'chokidar';
+import raven from 'raven';
 
 import * as routes from './routes/';
 import conf from './configure';
@@ -18,6 +19,8 @@ const accessLogStream = fs.createWriteStream(
 );
 
 const app = Express();
+
+app.use(raven.middleware.express.requestHandler(process.env.SENTRY_DSN));
 
 app.use(helmet());
 app.use(morgan('combined', { stream: accessLogStream }));
@@ -33,6 +36,8 @@ app.use(Express.static(__dirname + '/../public', { maxAge: '365d' }));
 app.use('/', routes.login);
 app.use('/api', routes.api);
 app.use('/', routes.universal);
+
+app.use(raven.middleware.express.errorHandler(process.env.SENTRY_DSN));
 
 if (process.env.NODE_ENV === 'development') {
   // Do "hot-reloading" of express stuff on the server
