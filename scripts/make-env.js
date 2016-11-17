@@ -44,13 +44,6 @@ var schema = {
       default: 'development',
     },
 
-    DEPLOY_ENV: {
-      description: 'Please enter a DEPLOY_ENV setting (development/staging/production)',
-      pattern: /development|staging|production/,
-      message: 'NODE_ENV must be "development", "staging" or "production"',
-      default: 'development',
-    },
-
     /**
      * Session storage settings
      */

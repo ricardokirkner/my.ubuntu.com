@@ -12,7 +12,6 @@ Environment='SESSION_MEMCACHED_HOST={{ cache_hosts | join(",") }}'
 Environment='SESSION_MEMCACHED_SECRET={{ memcache_session_secret }}'
 WorkingDirectory={{ working_dir }}
 User={{ user }}
-Environment='DEPLOY_ENV={{ environment }}'
 ExecStart=/usr/bin/npm run start-build
 Restart=on-failure
 RestartSec=15 5

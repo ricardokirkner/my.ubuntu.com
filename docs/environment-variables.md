@@ -22,14 +22,6 @@ The directory in which the application will look for log files.
 
 The role of the environment. This switches the mode of the application and its dependencies (e.g. [Express](http://expressjs.com/en/api.html#app.settings.table)) between fast "production" settings and developer-friendly "development" settings.
 
-### DEPLOY_ENV
-- **Deprecated**
-- **Examples**: `development` `staging` `production`
-
-Supplements NODE_ENV setting by allowing production builds of the application to be run with staging configuration.
-
-*This setting has been deprecated and is subject to removal in the future.*
-
 ## Session settings
 ### SESSION_SECRET
 - **Required**
