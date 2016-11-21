@@ -4,7 +4,6 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import path from 'path';
 import session from 'express-session';
-import chokidar from 'chokidar';
 import raven from 'raven';
 
 import * as routes from './routes/';
@@ -43,7 +42,7 @@ if (process.env.NODE_ENV === 'development') {
   // Do "hot-reloading" of express stuff on the server
   // Throw away cached modules and re-require next time
   // Ensure there's no important state in there!
-  const watcher = chokidar.watch('./src');
+  const watcher = require('chokidar').watch('./src');
 
   watcher.on('ready', function() {
     watcher.on('all', function() {

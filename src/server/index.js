@@ -1,14 +1,17 @@
 const url = require('url');
 const util = require('util');
-require('babel-register');
-require('css-modules-require-hook/preset');
-
 const conf = require('./configure.js');
-const WEBPACK_DEV_URL = conf.get('SERVER:WEBPACK_DEV_URL') || '';
-require('images-require-hook')('.svg', `${WEBPACK_DEV_URL}/static/icons`);
+let baseUrl = '';
+
+if (process.env.NODE_ENV != 'production') {
+  require('babel-register');
+  baseUrl = conf.get('SERVER:WEBPACK_DEV_URL') || '';
+}
+
+require('css-modules-require-hook/preset');
+require('images-require-hook')('.svg', `${baseUrl}/static/icons`);
 
 const app = require('./server').default;
-
 const appUrl = url.parse(conf.get('UNIVERSAL:MU_URL'));
 const appHost = conf.get('SERVER:HOST') || appUrl.hostname;
 const appPort = conf.get('SERVER:PORT') || appUrl.port;
