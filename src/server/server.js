@@ -1,9 +1,10 @@
+import compression from 'compression';
 import Express from 'express';
+import expressWinston from 'express-winston';
 import helmet from 'helmet';
+import raven from 'raven';
 import session from 'express-session';
 import url from 'url';
-import expressWinston from 'express-winston';
-import raven from 'raven';
 
 import * as routes from './routes/';
 import conf from './configure';
@@ -27,6 +28,7 @@ app.locals.host = conf.get('SERVER:HOST') || appUrl.hostname;
 app.locals.port = conf.get('SERVER:PORT') || appUrl.port;
 
 // middleware
+app.use(compression());
 app.use(setRevisionHeader);
 app.use(raven.middleware.express.requestHandler(conf.get('SENTRY_DSN')));
 app.use(expressWinston.logger({
