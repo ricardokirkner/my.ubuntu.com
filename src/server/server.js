@@ -38,6 +38,7 @@ app.use(session(sessionConfig(conf)));
 app.use(Express.static(__dirname + '/../public', { maxAge: '365d' }));
 
 // routes
+app.use('/_status', routes.status);
 app.use('/', routes.login);
 app.use('/api', routes.api);
 app.use('/', routes.universal);
