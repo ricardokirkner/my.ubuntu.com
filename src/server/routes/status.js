@@ -8,12 +8,12 @@ export const ping = (req, res) => {
   res.send('Ok');
 };
 
-export const check = (req, res) => {
+export const check = (req, res, next) => {
   const memcached = new Memcached(conf.get('SESSION_MEMCACHED_HOST'));
 
   memcached.version((err, result) => {
     if (err) {
-      res.status(500).send(err);
+      next(err);
     }
 
     res.send(JSON.stringify(result));
@@ -27,7 +27,7 @@ export const error = () => {
 
 export const metric = (req, res) => {
   // metric sent via middleware on route
-  res.send(200);
+  res.sendStatus(200);
 };
 
 const router = Router();
