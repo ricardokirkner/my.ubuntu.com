@@ -9,7 +9,7 @@ const files = glob.sync('/**/t_*.js', {
 });
 const mocha = new Mocha({
   fullTrace: true,
-  timeout: 30000,
+  timeout: 100000,
   reporter: 'spec'
 });
 
