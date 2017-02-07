@@ -29,21 +29,25 @@ const SSO_HOST = conf.get('SERVER:UBUNTU_SSO_HOST');
 const UBUNTU_SCA_URL = conf.get('SERVER:UBUNTU_SCA_URL');
 const VERIFY_URL = conf.get('SERVER:OPENID:VERIFY_URL');
 
-describe('login routes', () => {
+describe('login routes', function() {
 
-  afterEach(() => {
+  afterEach(function() {
     nock.cleanAll();
   });
 
-  describe('authenticate', () => {
-    it('should redirect from /login/authenticate to SSO', (done) => {
+  describe('authenticate', function() {
+    it('should redirect from /login/authenticate to SSO', function(done) {
+      this.timeout(5000);
+      this.slow(2000);
       supertest(app)
         .get('/login/authenticate')
         .expect('location', new RegExp(SSO_HOST))
         .expect(302, done);
     });
 
-    it('should include verify url in redirect header', (done) => {
+    it('should include verify url in redirect header', function(done) {
+      this.timeout(5000);
+      this.slow(2000);
       supertest(app)
         .get('/login/authenticate')
         .expect('location',
@@ -52,9 +56,9 @@ describe('login routes', () => {
         );
     });
 
-    context('when macaroon service responds with error', () => {
+    context('when macaroon service responds with error', function() {
 
-      it('should redirect home on error', (done) => {
+      it('should redirect home on error', function(done) {
         const sca = nock(UBUNTU_SCA_URL)
           .post('/dev/api/acl/', {
             'permissions': ['package_access', 'package_purchase']
