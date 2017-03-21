@@ -8,6 +8,8 @@ options:
         service_name: javan-rhino
         user: ubuntu
         tarball_payload: false
+        logs:
+            "/var/log/javan-rhino.log": {type: 'talisker'}
 
 exclude:
     - tmp
