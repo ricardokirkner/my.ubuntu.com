@@ -27,6 +27,8 @@ SYSTEMD_CONFIG = '/lib/systemd/system/javan-rhino.service'
 @when('ols.service.installed')
 @restart_on_change({SYSTEMD_CONFIG: ['javan-rhino']}, stopstart=True)
 def configure(cache):
+    javan_rhino_syslog_file = "/etc/rsyslog.d/22-javan-rhino.conf"
+    javan_rhino_logrotate_file = "/etc/logrotate.d/javan-rhino"
     env_file = join(etc_dir(), "environment_variables")
     environment = hookenv.config('environment')
     session_secret = hookenv.config('session_secret')
@@ -53,6 +55,20 @@ def configure(cache):
                 'env_file': env_file,
                 'environment': environment,
             })
+        # render syslog config to get talisker logs on disk
+        render(source='javan-rhino_syslog.tmpl',
+               target=javan_rhino_syslog_file,
+               context={
+                'logfile': "/var/log/javan-rhino.log",
+               })
+        # And rotate them
+        render(source='javan-rhino_logrotate.tmpl',
+               target=javan_rhino_logrotate_file,
+               context={
+                'logfile': "/var/log/javan-rhino.log",
+               })
+        # reload rsyslog
+        check_call(['systemctl', 'force-reload', 'rsyslog'])
         check_call(['systemctl', 'enable', basename(SYSTEMD_CONFIG)])
         check_call(['systemctl', 'daemon-reload'])
         check_port('ols.{}.express'.format(service_name()), port())

@@ -1,0 +1,8 @@
+template(name="talisker" type="list") {
+    property(name="msg" position.from="2")
+    constant(value="\n")
+}
+
+if $programname == 'talisker' or $programname == "npm" then {
+action(type="omfile" file="{{ logfile }}" template="talisker")
+}
