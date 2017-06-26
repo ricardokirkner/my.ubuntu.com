@@ -91,7 +91,7 @@ var schema = {
      */
     UNIVERSAL__STRIPE_PUBLISHABLE_KEY: {
       description: 'Please enter a Stripe publishable key',
-      default: 'pk_test_daBepdMharNP0PTQYoyQJPjH'
+      default: 'pk_test_YmLJ2j3tAHqKN3Czwyq5ly91'
     },
 
     /**
