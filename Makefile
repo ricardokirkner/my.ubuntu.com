@@ -96,7 +96,7 @@ git-build: EXTRA_CHARM_BUILD_ARGS = --force
 git-build: build $(GIT_CHARMREPODIR)
 	rsync -a -m --ignore-times --delete --exclude-from build-exclude.txt  $(CHARMDIR)/ $(CHARMREPODIR)/
 	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git add .
-	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git commit -c user.name="$(USER)" -c user.email="$(USER) <$(USER)@$(DOMAIN)>" -am "Build of $(NAME) from $(GIT_HEAD_HASH)"
+	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git -c user.name="$(USER)" -c user.email="$(USER) <$(USER)@$(DOMAIN)>" commit -am "Build of $(NAME) from $(GIT_HEAD_HASH)"
 	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git push origin $(BUILDBRANCH)
 
 .PHONY: version-info build deploy clean check-git-build-vars git-build
