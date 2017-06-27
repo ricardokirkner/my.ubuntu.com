@@ -30,6 +30,7 @@ DISTDIR = dist
 DIST = $(DISTDIR)/.done
 GIT_HEAD_HASH = $(shell git rev-parse HEAD)
 BUILDBRANCH ?= staging
+HOSTNAME = $(shell uname -n)
 
 export INTERFACE_PATH
 export LAYER_PATH
@@ -95,7 +96,7 @@ git-build: EXTRA_CHARM_BUILD_ARGS = --force
 git-build: build $(GIT_CHARMREPODIR)
 	rsync -a -m --ignore-times --delete --exclude-from build-exclude.txt  $(CHARMDIR)/ $(CHARMREPODIR)/
 	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git add .
-	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git commit -am "Build of $(NAME) from $(GIT_HEAD_HASH)"
+	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git commit -am "Build of $(NAME) from $(GIT_HEAD_HASH)" --author "$(USER)@$(HOSTNAME).localdomain"
 	cd $(CHARMREPODIR) && GIT_DIR=$(GIT_CHARMREPODIR) git push origin $(BUILDBRANCH)
 
 .PHONY: version-info build deploy clean check-git-build-vars git-build
